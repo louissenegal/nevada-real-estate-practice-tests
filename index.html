@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevada Real Estate Exam - Interactive Practice Test System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+      body {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 32px 80px;
+        position: relative;
+        box-sizing: border-box;
+        font-family: 'Times New Roman', serif;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .test-nav {
+        background: #f8f9fa;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+      }
+
+      .test-nav button {
+        margin: 5px;
+        padding: 8px 12px;
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .test-nav button:hover {
+        background: #0056b3;
+      }
+
+      .test-nav button.active {
+        background: #28a745;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 20px;
+        background: #e9ecef;
+        border-radius: 10px;
+        margin: 15px 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: #28a745;
+        transition: width 0.3s ease;
+      }
+
+      .timer {
+        font-size: 18px;
+        font-weight: bold;
+        color: #dc3545;
+        text-align: center;
+        margin: 10px 0;
+      }
+
+      .question-container {
+        margin: 20px 0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        background: #fff;
+      }
+
+      .question-number {
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 10px;
+      }
+
+      .choices {
+        margin: 15px 0;
+      }
+
+      .choice {
+        margin: 8px 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .choice input[type='radio'] {
+        margin-right: 10px;
+      }
+
+      .submit-section {
+        text-align: center;
+        margin: 30px 0;
+        padding: 20px;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+      }
+
+      .submit-btn {
+        background: #dc3545;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      .submit-btn:hover {
+        background: #c82333;
+      }
+
+      .results {
+        margin: 20px 0;
+        padding: 20px;
+        border: 2px solid #007bff;
+        background: #f8f9fa;
+        display: none;
+      }
+
+      .pass {
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .fail {
+        color: #dc3545;
+        font-weight: bold;
+      }
+
+      .correct {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 10px;
+        margin: 5px 0;
+      }
+
+      .incorrect {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+        padding: 10px;
+        margin: 5px 0;
+      }
+
+      .explanation {
+        margin-top: 10px;
+        font-style: italic;
+        color: #666;
+      }
+
+      .test-section {
+        display: none;
+      }
+
+      .test-section.active {
+        display: block;
+      }
+
+      .hub {
+        text-align: center;
+      }
+
+      .test-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .test-card {
+        border: 1px solid #ddd;
+        padding: 20px;
+        background: #f8f9fa;
+        text-align: center;
+      }
+
+      .test-card h3 {
+        color: #007bff;
+        margin-bottom: 15px;
+      }
+
+      .start-test-btn {
+        background: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-size: 14px;
+      }
+
+      .start-test-btn:hover {
+        background: #0056b3;
+      }
+
+      .completed {
+        background: #28a745;
+      }
+
+      .study-tips {
+        margin: 30px 0;
+        padding: 20px;
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+      }
+
+      .test-status {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body style="">
+    <h1 style="text-align: center; margin-bottom: 30px">Nevada Real Estate Exam - Interactive Practice Test System</h1>
+
+    <!-- Hub Section -->
+    <div id="hub" class="test-section hub">
+      <div class="study-tips">
+        <h2>Welcome to Your Nevada Real Estate Exam Preparation</h2>
+        <p>
+          This comprehensive system contains 5 complete practice tests with 150 total questions designed to prepare you
+          for the Nevada Real Estate Salesperson License Examination.
+        </p>
+
+        <h3>Study Tips</h3>
+        <ul style="text-align: left; max-width: 600px; margin: 0 auto">
+          <li>Take each test under exam conditions (3.5 hours)</li>
+          <li>Aim for 80% or higher on practice tests</li>
+          <li>Review all explanations, especially for missed questions</li>
+          <li>Focus on Nevada-specific laws and regulations</li>
+          <li>Practice calculations and mathematical problems</li>
+        </ul>
+
+        <h3>Passing Requirements</h3>
+        <p>You need <strong>75% or higher</strong> to pass the actual Nevada real estate exam.</p>
+      </div>
+
+      <div class="test-grid">
+        <div class="test-card">
+          <h3>Practice Test 1</h3>
+          <p>Basic Principles &amp; Nevada Law</p>
+          <p>30 Questions | 3.5 Hours</p>
+          <button class="start-test-btn" onclick="startTest(1)">Start Test 1</button>
+          <div class="test-status" id="status-1">Not Started</div>
+        </div>
+
+        <div class="test-card">
+          <h3>Practice Test 2</h3>
+          <p>Contracts, Agency &amp; Disclosures</p>
+          <p>30 Questions | 3.5 Hours</p>
+          <button class="start-test-btn" onclick="startTest(2)">Start Test 2</button>
+          <div class="test-status" id="status-2">Not Started</div>
+        </div>
+
+        <div class="test-card">
+          <h3>Practice Test 3</h3>
+          <p>Financing, Math &amp; Valuation</p>
+          <p>30 Questions | 3.5 Hours</p>
+          <button class="start-test-btn" onclick="startTest(3)">Start Test 3</button>
+          <div class="test-status" id="status-3">Not Started</div>
+        </div>
+
+        <div class="test-card">
+          <h3>Practice Test 4</h3>
+          <p>Fair Housing, Ethics &amp; Practice</p>
+          <p>30 Questions | 3.5 Hours</p>
+          <button class="start-test-btn" onclick="startTest(4)">Start Test 4</button>
+          <div class="test-status" id="status-4">Not Started</div>
+        </div>
+
+        <div class="test-card">
+          <h3>Practice Test 5</h3>
+          <p>Advanced Topics &amp; Review</p>
+          <p>30 Questions | 3.5 Hours</p>
+          <button class="start-test-btn" onclick="startTest(5)">Start Test 5</button>
+          <div class="test-status" id="status-5">Not Started</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px">
+        <h3>Your Progress</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" id="overall-progress" style="width: 0%"></div>
+        </div>
+        <p id="progress-text">0 of 5 tests completed</p>
+      </div>
+    </div>
+
+    <!-- Test 1 Section -->
+    <div id="test-1" class="test-section active">
+      <div class="test-nav">
+        <button onclick="showHub()">← Back to Hub</button>
+        <button onclick="startTest(1)" class="active">Test 1</button>
+        <button onclick="startTest(2)">Test 2</button>
+        <button onclick="startTest(3)">Test 3</button>
+        <button onclick="startTest(4)">Test 4</button>
+        <button onclick="startTest(5)">Test 5</button>
+        <span style="float: right">
+          <div class="timer" id="timer-1">3:29:27</div>
+        </span>
+      </div>
+
+      <h2>Practice Test 1 - Basic Principles &amp; Nevada Law</h2>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-1" style="width: 0%"></div>
+      </div>
+      <p id="question-counter-1">Question 0 of 30</p>
+
+      <form id="test-form-1">
+        <div class="question-container">
+          <div class="question-number">
+            1. Under Nevada law (NRS 645), what is the maximum time period for which a real estate license may be issued
+            or renewed?
+          </div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q1" value="A"> A. 1 year</div>
+            <div class="choice"><input type="radio" name="q1" value="B"> B. 2 years</div>
+            <div class="choice"><input type="radio" name="q1" value="C"> C. 3 years</div>
+            <div class="choice"><input type="radio" name="q1" value="D"> D. 4 years</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">
+            2. What is the minimum number of continuing education hours required for Nevada real estate license renewal?
+          </div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q2" value="A"> A. 24 hours</div>
+            <div class="choice"><input type="radio" name="q2" value="B"> B. 30 hours</div>
+            <div class="choice"><input type="radio" name="q2" value="C"> C. 36 hours</div>
+            <div class="choice"><input type="radio" name="q2" value="D"> D. 45 hours</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">
+            3. In Nevada, the Real Estate Division is under the administrative authority of which department?
+          </div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q3" value="A"> A. Department of Commerce and Industry</div>
+            <div class="choice"><input type="radio" name="q3" value="B"> B. Department of Business and Industry</div>
+            <div class="choice">
+              <input type="radio" name="q3" value="C"> C. Department of Professional Regulation
+            </div>
+            <div class="choice"><input type="radio" name="q3" value="D"> D. Department of Consumer Affairs</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">
+            4. Under Nevada law, how many days does a licensee have to notify the Real Estate Division of a change in
+            employment?
+          </div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q4" value="A"> A. 5 days</div>
+            <div class="choice"><input type="radio" name="q4" value="B"> B. 10 days</div>
+            <div class="choice"><input type="radio" name="q4" value="C"> C. 15 days</div>
+            <div class="choice"><input type="radio" name="q4" value="D"> D. 30 days</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">
+            5. In Nevada, what is the maximum amount that can be paid from the Real Estate Education, Research and
+            Recovery Fund for claims against a single licensee?
+          </div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q5" value="A"> A. $25,000</div>
+            <div class="choice"><input type="radio" name="q5" value="B"> B. $50,000</div>
+            <div class="choice"><input type="radio" name="q5" value="C"> C. $75,000</div>
+            <div class="choice"><input type="radio" name="q5" value="D"> D. $100,000</div>
+          </div>
+        </div>
+
+        <!-- Questions 6-30 for Test 1 -->
+        <div class="question-container">
+          <div class="question-number">6. A buyer's agent discovers that the seller has not disclosed a material defect in the property. The agent's first responsibility is to:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q6" value="A"> A. Immediately withdraw from the transaction</div>
+            <div class="choice"><input type="radio" name="q6" value="B"> B. Inform the buyer of the defect</div>
+            <div class="choice"><input type="radio" name="q6" value="C"> C. Confront the seller directly</div>
+            <div class="choice"><input type="radio" name="q6" value="D"> D. Report the seller to the Real Estate Division</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">7. Which of the following is NOT a characteristic of a valid contract?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q7" value="A"> A. Mutual agreement</div>
+            <div class="choice"><input type="radio" name="q7" value="B"> B. Written form</div>
+            <div class="choice"><input type="radio" name="q7" value="C"> C. Legal purpose</div>
+            <div class="choice"><input type="radio" name="q7" value="D"> D. Competent parties</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">8. In Nevada, a real estate salesperson's license is issued to:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q8" value="A"> A. The individual salesperson only</div>
+            <div class="choice"><input type="radio" name="q8" value="B"> B. The employing broker only</div>
+            <div class="choice"><input type="radio" name="q8" value="C"> C. Both the salesperson and the employing broker</div>
+            <div class="choice"><input type="radio" name="q8" value="D"> D. The Real Estate Division</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">9. The federal law that requires disclosure of lead-based paint hazards applies to residential properties built before:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q9" value="A"> A. 1970</div>
+            <div class="choice"><input type="radio" name="q9" value="B"> B. 1975</div>
+            <div class="choice"><input type="radio" name="q9" value="C"> C. 1976</div>
+            <div class="choice"><input type="radio" name="q9" value="D"> D. 1978</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">10. In an exclusive right-to-sell listing, the listing broker is entitled to a commission if:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q10" value="A"> A. The property is sold by anyone during the listing period</div>
+            <div class="choice"><input type="radio" name="q10" value="B"> B. Only if the broker finds the buyer</div>
+            <div class="choice"><input type="radio" name="q10" value="C"> C. Only if the seller finds the buyer</div>
+            <div class="choice"><input type="radio" name="q10" value="D"> D. Only if another broker finds the buyer</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">11. Nevada's homestead exemption protects up to what amount of equity in a primary residence?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q11" value="A"> A. $125,000</div>
+            <div class="choice"><input type="radio" name="q11" value="B"> B. $150,000</div>
+            <div class="choice"><input type="radio" name="q11" value="C"> C. $605,000</div>
+            <div class="choice"><input type="radio" name="q11" value="D"> D. $1,000,000</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">12. The principle of substitution states that:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q12" value="A"> A. No one will pay more for a property than the cost of an equally desirable substitute</div>
+            <div class="choice"><input type="radio" name="q12" value="B"> B. A property's value is maximized when it conforms to its surroundings</div>
+            <div class="choice"><input type="radio" name="q12" value="C"> C. The value of a property is the present worth of future benefits</div>
+            <div class="choice"><input type="radio" name="q12" value="D"> D. A property's value is influenced by the surrounding properties</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">13. In Nevada, which type of agency relationship requires written disclosure to all parties?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q13" value="A"> A. All agency relationships</div>
+            <div class="choice"><input type="radio" name="q13" value="B"> B. Only dual agency</div>
+            <div class="choice"><input type="radio" name="q13" value="C"> C. Only designated agency</div>
+            <div class="choice"><input type="radio" name="q13" value="D"> D. Only buyer agency</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">14. The Real Estate Settlement Procedures Act (RESPA) applies to:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q14" value="A"> A. Cash transactions only</div>
+            <div class="choice"><input type="radio" name="q14" value="B"> B. Commercial transactions only</div>
+            <div class="choice"><input type="radio" name="q14" value="C"> C. Investment property transactions only</div>
+            <div class="choice"><input type="radio" name="q14" value="D"> D. Federally related mortgage loans</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">15. A buyer makes an offer on a property with a financing contingency. If the buyer cannot obtain financing:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q15" value="A"> A. The buyer forfeits the earnest money</div>
+            <div class="choice"><input type="radio" name="q15" value="B"> B. The buyer can cancel and receive the earnest money back</div>
+            <div class="choice"><input type="radio" name="q15" value="C"> C. The seller can sue for specific performance</div>
+            <div class="choice"><input type="radio" name="q15" value="D"> D. The contract automatically extends</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">16. In Nevada, property taxes are assessed based on:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q16" value="A"> A. Market value</div>
+            <div class="choice"><input type="radio" name="q16" value="B"> B. Purchase price</div>
+            <div class="choice"><input type="radio" name="q16" value="C"> C. Taxable value (35% of assessed value)</div>
+            <div class="choice"><input type="radio" name="q16" value="D"> D. Replacement cost</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">17. A property management agreement creates what type of relationship?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q17" value="A"> A. Principal-agent relationship</div>
+            <div class="choice"><input type="radio" name="q17" value="B"> B. Independent contractor relationship</div>
+            <div class="choice"><input type="radio" name="q17" value="C"> C. Partnership relationship</div>
+            <div class="choice"><input type="radio" name="q17" value="D"> D. Employer-employee relationship</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">18. Under Nevada law, a real estate broker must maintain transaction records for at least:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q18" value="A"> A. 3 years</div>
+            <div class="choice"><input type="radio" name="q18" value="B"> B. 5 years</div>
+            <div class="choice"><input type="radio" name="q18" value="C"> C. 7 years</div>
+            <div class="choice"><input type="radio" name="q18" value="D"> D. 10 years</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">19. The Americans with Disabilities Act (ADA) applies to:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q19" value="A"> A. Residential properties only</div>
+            <div class="choice"><input type="radio" name="q19" value="B"> B. Commercial properties only</div>
+            <div class="choice"><input type="radio" name="q19" value="C"> C. Government buildings only</div>
+            <div class="choice"><input type="radio" name="q19" value="D"> D. Places of public accommodation and commercial facilities</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">20. In Nevada, which of the following requires a real estate license?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q20" value="A"> A. Selling your own property</div>
+            <div class="choice"><input type="radio" name="q20" value="B"> B. Property management for a single owner</div>
+            <div class="choice"><input type="radio" name="q20" value="C"> C. Negotiating real estate transactions for others for compensation</div>
+            <div class="choice"><input type="radio" name="q20" value="D"> D. Giving free real estate advice</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">21. A net listing is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q21" value="A"> A. A listing where the broker receives everything above a specified net amount to the seller</div>
+            <div class="choice"><input type="radio" name="q21" value="B"> B. A listing with no commission</div>
+            <div class="choice"><input type="radio" name="q21" value="C"> C. A listing for investment properties only</div>
+            <div class="choice"><input type="radio" name="q21" value="D"> D. A listing available on the internet</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">22. The Fair Housing Act prohibits discrimination based on all of the following EXCEPT:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q22" value="A"> A. Race</div>
+            <div class="choice"><input type="radio" name="q22" value="B"> B. Marital status</div>
+            <div class="choice"><input type="radio" name="q22" value="C"> C. Religion</div>
+            <div class="choice"><input type="radio" name="q22" value="D"> D. Familial status</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">23. Blockbusting is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q23" value="A"> A. Legal if disclosed</div>
+            <div class="choice"><input type="radio" name="q23" value="B"> B. Illegal under fair housing laws</div>
+            <div class="choice"><input type="radio" name="q23" value="C"> C. Encouraging panic selling for profit based on minority entry into a neighborhood</div>
+            <div class="choice"><input type="radio" name="q23" value="D"> D. Both B and C</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">24. In Nevada, when must a property condition disclosure be provided to the buyer?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q24" value="A"> A. Before the buyer makes an offer</div>
+            <div class="choice"><input type="radio" name="q24" value="B"> B. Within 10 days of contract acceptance</div>
+            <div class="choice"><input type="radio" name="q24" value="C"> C. At closing</div>
+            <div class="choice"><input type="radio" name="q24" value="D"> D. Only if requested by the buyer</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">25. Which method of legal description is most commonly used in Nevada?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q25" value="A"> A. Metes and bounds</div>
+            <div class="choice"><input type="radio" name="q25" value="B"> B. Lot and block</div>
+            <div class="choice"><input type="radio" name="q25" value="C"> C. Government survey</div>
+            <div class="choice"><input type="radio" name="q25" value="D"> D. Rectangular survey system</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">26. The covenant of quiet enjoyment guarantees that the grantee:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q26" value="A"> A. Will not be disturbed by loud neighbors</div>
+            <div class="choice"><input type="radio" name="q26" value="B"> B. Will not be disturbed by the grantor or anyone claiming title through the grantor</div>
+            <div class="choice"><input type="radio" name="q26" value="C"> C. Has clear title to the property</div>
+            <div class="choice"><input type="radio" name="q26" value="D"> D. Can use the property for any legal purpose</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">27. In Nevada, a security deposit for residential rental property cannot exceed:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q27" value="A"> A. One month's rent</div>
+            <div class="choice"><input type="radio" name="q27" value="B"> B. Two months' rent</div>
+            <div class="choice"><input type="radio" name="q27" value="C"> C. Three months' rent</div>
+            <div class="choice"><input type="radio" name="q27" value="D"> D. There is no limit</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">28. Commingling of client funds is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q28" value="A"> A. Prohibited in Nevada</div>
+            <div class="choice"><input type="radio" name="q28" value="B"> B. Allowed with written consent</div>
+            <div class="choice"><input type="radio" name="q28" value="C"> C. Required by law</div>
+            <div class="choice"><input type="radio" name="q28" value="D"> D. Only allowed for security deposits</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">29. The Nevada Revised Statutes Chapter 645 governs:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q29" value="A"> A. Property taxation</div>
+            <div class="choice"><input type="radio" name="q29" value="B"> B. Real estate licensing and practice</div>
+            <div class="choice"><input type="radio" name="q29" value="C"> C. Landlord-tenant law</div>
+            <div class="choice"><input type="radio" name="q29" value="D"> D. Construction standards</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">30. A property has annual gross income of $150,000 and operating expenses of $45,000. Using an 8% cap rate, what is the estimated value?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q30" value="A"> A. $1,312,500</div>
+            <div class="choice"><input type="radio" name="q30" value="B"> B. $1,250,000</div>
+            <div class="choice"><input type="radio" name="q30" value="C"> C. $1,875,000</div>
+            <div class="choice"><input type="radio" name="q30" value="D"> D. $1,562,500</div>
+          </div>
+        </div>
+      </form>
+
+      <div class="submit-section">
+        <button class="submit-btn" onclick="submitTest(1)">Submit Test 1</button>
+        <button class="submit-btn" onclick="reviewTest(1)" style="background: #6c757d">Review Answers</button>
+      </div>
+
+      <div id="results-1" class="results">
+        <h3>Test 1 Results</h3>
+        <div id="score-1"></div>
+        <div id="detailed-results-1"></div>
+      </div>
+    </div>
+
+    <!-- Test 2 Section -->
+    <div id="test-2" class="test-section">
+      <div class="test-nav">
+        <button onclick="showHub()">← Back to Hub</button>
+        <button onclick="startTest(1)">Test 1</button>
+        <button onclick="startTest(2)" class="active">Test 2</button>
+        <button onclick="startTest(3)">Test 3</button>
+        <button onclick="startTest(4)">Test 4</button>
+        <button onclick="startTest(5)">Test 5</button>
+        <span style="float: right">
+          <div class="timer" id="timer-2">3:30:00</div>
+        </span>
+      </div>
+
+      <h2>Practice Test 2 - Contracts, Agency &amp; Disclosures</h2>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-2" style="width: 0%"></div>
+      </div>
+      <p id="question-counter-2">Question 0 of 30</p>
+
+      <form id="test-form-2">
+        <div class="question-container">
+          <div class="question-number">1. Under Nevada law, a real estate license will expire if not renewed within what time period after the expiration date?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q1" value="A"> A. 30 days</div>
+            <div class="choice"><input type="radio" name="q1" value="B"> B. 60 days</div>
+            <div class="choice"><input type="radio" name="q1" value="C"> C. 90 days</div>
+            <div class="choice"><input type="radio" name="q1" value="D"> D. 120 days</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">2. In Nevada, which disclosure form must be given to prospective buyers regarding natural hazards?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q2" value="A"> A. Seismic Hazard Disclosure</div>
+            <div class="choice"><input type="radio" name="q2" value="B"> B. Natural Hazard Disclosure Statement</div>
+            <div class="choice"><input type="radio" name="q2" value="C"> C. Environmental Impact Statement</div>
+            <div class="choice"><input type="radio" name="q2" value="D"> D. Nevada does not require natural hazard disclosures</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">3. The Nevada Real Estate Commission consists of how many members?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q3" value="A"> A. 5 members</div>
+            <div class="choice"><input type="radio" name="q3" value="B"> B. 7 members</div>
+            <div class="choice"><input type="radio" name="q3" value="C"> C. 9 members</div>
+            <div class="choice"><input type="radio" name="q3" value="D"> D. 11 members</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">4. To renew a Nevada real estate license, how many hours of continuing education must include Nevada law?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q4" value="A"> A. 3 hours</div>
+            <div class="choice"><input type="radio" name="q4" value="B"> B. 6 hours</div>
+            <div class="choice"><input type="radio" name="q4" value="C"> C. 9 hours</div>
+            <div class="choice"><input type="radio" name="q4" value="D"> D. 12 hours</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">5. The economic principle stating that the maximum value of a property is achieved when land use is in harmony with surrounding properties is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q5" value="A"> A. Progression</div>
+            <div class="choice"><input type="radio" name="q5" value="B"> B. Regression</div>
+            <div class="choice"><input type="radio" name="q5" value="C"> C. Conformity</div>
+            <div class="choice"><input type="radio" name="q5" value="D"> D. Contribution</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">6. A listing agent discovers that the property has been used as a methamphetamine laboratory. The agent must:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q6" value="A"> A. Disclose this to potential buyers</div>
+            <div class="choice"><input type="radio" name="q6" value="B"> B. Keep this information confidential</div>
+            <div class="choice"><input type="radio" name="q6" value="C"> C. Only disclose if directly asked</div>
+            <div class="choice"><input type="radio" name="q6" value="D"> D. Report to law enforcement first</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">7. The maximum amount that can be collected from Nevada's Real Estate Education, Research and Recovery Fund per transaction is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q7" value="A"> A. $15,000</div>
+            <div class="choice"><input type="radio" name="q7" value="B"> B. $20,000</div>
+            <div class="choice"><input type="radio" name="q7" value="C"> C. $25,000</div>
+            <div class="choice"><input type="radio" name="q7" value="D"> D. $30,000</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">8. For a contract to be enforceable, all parties must have:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q8" value="A"> A. Legal capacity</div>
+            <div class="choice"><input type="radio" name="q8" value="B"> B. Written agreement</div>
+            <div class="choice"><input type="radio" name="q8" value="C"> C. Notarized signatures</div>
+            <div class="choice"><input type="radio" name="q8" value="D"> D. Witness signatures</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">9. In Nevada, which entity investigates complaints against real estate licensees?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q9" value="A"> A. Nevada Association of Realtors</div>
+            <div class="choice"><input type="radio" name="q9" value="B"> B. Local real estate boards</div>
+            <div class="choice"><input type="radio" name="q9" value="C"> C. Nevada Real Estate Division</div>
+            <div class="choice"><input type="radio" name="q9" value="D"> D. Nevada Attorney General</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">10. A listing agreement creates what type of relationship?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q10" value="A"> A. Principal-agent relationship</div>
+            <div class="choice"><input type="radio" name="q10" value="B"> B. Independent contractor relationship</div>
+            <div class="choice"><input type="radio" name="q10" value="C"> C. Partnership</div>
+            <div class="choice"><input type="radio" name="q10" value="D"> D. Joint venture</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">11. Under Nevada disclosure law, sellers must disclose:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q11" value="A"> A. Only structural defects</div>
+            <div class="choice"><input type="radio" name="q11" value="B"> B. All material facts they know about the property</div>
+            <div class="choice"><input type="radio" name="q11" value="C"> C. Only defects that cost over $500 to repair</div>
+            <div class="choice"><input type="radio" name="q11" value="D"> D. Nothing unless specifically asked</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">12. In an exclusive buyer agency agreement, the agent represents:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q12" value="A"> A. The seller only</div>
+            <div class="choice"><input type="radio" name="q12" value="B"> B. The buyer only</div>
+            <div class="choice"><input type="radio" name="q12" value="C"> C. Both buyer and seller</div>
+            <div class="choice"><input type="radio" name="q12" value="D"> D. Neither party</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">13. A contract that has been fully performed by both parties is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q13" value="A"> A. Executory</div>
+            <div class="choice"><input type="radio" name="q13" value="B"> B. Executed</div>
+            <div class="choice"><input type="radio" name="q13" value="C"> C. Void</div>
+            <div class="choice"><input type="radio" name="q13" value="D"> D. Voidable</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">14. Dual agency occurs when:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q14" value="A"> A. An agent represents two buyers</div>
+            <div class="choice"><input type="radio" name="q14" value="B"> B. An agent represents both buyer and seller in the same transaction</div>
+            <div class="choice"><input type="radio" name="q14" value="C"> C. Two agents work together</div>
+            <div class="choice"><input type="radio" name="q14" value="D"> D. An agent has two licenses</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">15. The phrase "time is of the essence" in a contract means:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q15" value="A"> A. The contract must be performed quickly</div>
+            <div class="choice"><input type="radio" name="q15" value="B"> B. Deadlines are strictly enforced</div>
+            <div class="choice"><input type="radio" name="q15" value="C"> C. The contract expires at midnight</div>
+            <div class="choice"><input type="radio" name="q15" value="D"> D. Performance can be delayed without penalty</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">16. A buyer's inspection contingency allows the buyer to:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q16" value="A"> A. Cancel the contract for any reason</div>
+            <div class="choice"><input type="radio" name="q16" value="B"> B. Negotiate repairs based on inspection results</div>
+            <div class="choice"><input type="radio" name="q16" value="C"> C. Change the purchase price</div>
+            <div class="choice"><input type="radio" name="q16" value="D"> D. All of the above</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">17. An agent's fiduciary duties include:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q17" value="A"> A. Loyalty, obedience, disclosure, confidentiality, accounting, reasonable care</div>
+            <div class="choice"><input type="radio" name="q17" value="B"> B. Only loyalty and obedience</div>
+            <div class="choice"><input type="radio" name="q17" value="C"> C. Only accounting and disclosure</div>
+            <div class="choice"><input type="radio" name="q17" value="D"> D. No specific duties are required</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">18. A quitclaim deed provides the grantee with:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q18" value="A"> A. The best title protection</div>
+            <div class="choice"><input type="radio" name="q18" value="B"> B. No warranties or guarantees</div>
+            <div class="choice"><input type="radio" name="q18" value="C"> C. Title insurance automatically</div>
+            <div class="choice"><input type="radio" name="q18" value="D"> D. Guaranteed marketable title</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">19. In Nevada, disclosure of a property's stigmatized status (such as a death on the property) is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q19" value="A"> A. Always required</div>
+            <div class="choice"><input type="radio" name="q19" value="B"> B. Never required</div>
+            <div class="choice"><input type="radio" name="q19" value="C"> C. Required only if it affects property value</div>
+            <div class="choice"><input type="radio" name="q19" value="D"> D. Required only if directly asked</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">20. A purchase agreement becomes binding when:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q20" value="A"> A. The buyer signs the offer</div>
+            <div class="choice"><input type="radio" name="q20" value="B"> B. The seller accepts and signs the offer</div>
+            <div class="choice"><input type="radio" name="q20" value="C"> C. The buyer is notified of the seller's acceptance</div>
+            <div class="choice"><input type="radio" name="q20" value="D"> D. Earnest money is deposited</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">21. In Nevada, the statute of frauds requires which contracts to be in writing?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q21" value="A"> A. All contracts</div>
+            <div class="choice"><input type="radio" name="q21" value="B"> B. Real estate purchase contracts only</div>
+            <div class="choice"><input type="radio" name="q21" value="C"> C. Contracts that cannot be performed within one year</div>
+            <div class="choice"><input type="radio" name="q21" value="D"> D. Listing agreements only</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">22. Designated agency means:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q22" value="A"> A. The broker represents both parties</div>
+            <div class="choice"><input type="radio" name="q22" value="B"> B. Different agents in the same firm represent buyer and seller</div>
+            <div class="choice"><input type="radio" name="q22" value="C"> C. The agent represents neither party</div>
+            <div class="choice"><input type="radio" name="q22" value="D"> D. The agent can switch representation during the transaction</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">23. An open listing means:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q23" value="A"> A. The property is shown to all buyers</div>
+            <div class="choice"><input type="radio" name="q23" value="B"> B. Multiple brokers can market the property, but only the one who brings the buyer gets paid</div>
+            <div class="choice"><input type="radio" name="q23" value="C"> C. The listing price is negotiable</div>
+            <div class="choice"><input type="radio" name="q23" value="D"> D. The property is open for inspection</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">24. Under Nevada law, earnest money must be:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q24" value="A"> A. Deposited within 1 business day</div>
+            <div class="choice"><input type="radio" name="q24" value="B"> B. Deposited within 3 business days</div>
+            <div class="choice"><input type="radio" name="q24" value="C"> C. Held by the listing broker</div>
+            <div class="choice"><input type="radio" name="q24" value="D"> D. At least 3% of the purchase price</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">25. A counteroffer:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q25" value="A"> A. Accepts the original offer</div>
+            <div class="choice"><input type="radio" name="q25" value="B"> B. Rejects the original offer and creates a new offer</div>
+            <div class="choice"><input type="radio" name="q25" value="C"> C. Extends the time for acceptance</div>
+            <div class="choice"><input type="radio" name="q25" value="D"> D. Requires additional earnest money</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">26. In Nevada, which document must be provided to all parties in a real estate transaction?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q26" value="A"> A. Duties Owed by a Nevada Real Estate Licensee</div>
+            <div class="choice"><input type="radio" name="q26" value="B"> B. Nevada Residential Property Disclosure Guide</div>
+            <div class="choice"><input type="radio" name="q26" value="C"> C. Both A and B</div>
+            <div class="choice"><input type="radio" name="q26" value="D"> D. Neither A nor B</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">27. A material fact is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q27" value="A"> A. Any fact about the property</div>
+            <div class="choice"><input type="radio" name="q27" value="B"> B. A fact that would influence a buyer's decision</div>
+            <div class="choice"><input type="radio" name="q27" value="C"> C. Only structural defects</div>
+            <div class="choice"><input type="radio" name="q27" value="D"> D. Information about the neighborhood</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">28. Specific performance is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q28" value="A"> A. Monetary damages for breach of contract</div>
+            <div class="choice"><input type="radio" name="q28" value="B"> B. Forcing the breaching party to complete the contract</div>
+            <div class="choice"><input type="radio" name="q28" value="C"> C. Canceling the contract</div>
+            <div class="choice"><input type="radio" name="q28" value="D"> D. Renegotiating contract terms</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">29. An exclusive right-to-sell listing differs from an exclusive agency listing in that:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q29" value="A"> A. Only one broker can market the property</div>
+            <div class="choice"><input type="radio" name="q29" value="B"> B. The broker gets paid regardless of who sells the property</div>
+            <div class="choice"><input type="radio" name="q29" value="C"> C. The listing period is longer</div>
+            <div class="choice"><input type="radio" name="q29" value="D"> D. The commission rate is higher</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">30. A buyer agent receives two competing offers. The agent should:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q30" value="A"> A. Present only the highest offer</div>
+            <div class="choice"><input type="radio" name="q30" value="B"> B. Present both offers simultaneously</div>
+            <div class="choice"><input type="radio" name="q30" value="C"> C. Choose which offer to present first</div>
+            <div class="choice"><input type="radio" name="q30" value="D"> D. Combine both offers into one</div>
+          </div>
+        </div>
+      </form>
+
+      <div class="submit-section">
+        <button class="submit-btn" onclick="submitTest(2)">Submit Test 2</button>
+        <button class="submit-btn" onclick="reviewTest(2)" style="background: #6c757d">Review Answers</button>
+      </div>
+
+      <div id="results-2" class="results">
+        <h3>Test 2 Results</h3>
+        <div id="score-2"></div>
+        <div id="detailed-results-2"></div>
+      </div>
+    </div>
+
+    <!-- Test 3 Section -->
+    <div id="test-3" class="test-section">
+      <div class="test-nav">
+        <button onclick="showHub()">← Back to Hub</button>
+        <button onclick="startTest(1)">Test 1</button>
+        <button onclick="startTest(2)">Test 2</button>
+        <button onclick="startTest(3)" class="active">Test 3</button>
+        <button onclick="startTest(4)">Test 4</button>
+        <button onclick="startTest(5)">Test 5</button>
+        <span style="float: right">
+          <div class="timer" id="timer-3">3:30:00</div>
+        </span>
+      </div>
+
+      <h2>Practice Test 3 - Financing, Math &amp; Valuation</h2>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-3" style="width: 0%"></div>
+      </div>
+      <p id="question-counter-3">Question 0 of 30</p>
+
+      <form id="test-form-3">
+        <div class="question-container">
+          <div class="question-number">1. Under Nevada law, how many years of real estate experience is required to qualify for a broker's license?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q1" value="A"> A. 1 year</div>
+            <div class="choice"><input type="radio" name="q1" value="B"> B. 2 years</div>
+            <div class="choice"><input type="radio" name="q1" value="C"> C. 3 years</div>
+            <div class="choice"><input type="radio" name="q1" value="D"> D. 5 years</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">2. A borrower obtains a $200,000 loan at 6% interest. What is the first month's interest payment?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q2" value="A"> A. $1,000</div>
+            <div class="choice"><input type="radio" name="q2" value="B"> B. $1,200</div>
+            <div class="choice"><input type="radio" name="q2" value="C"> C. $12,000</div>
+            <div class="choice"><input type="radio" name="q2" value="D"> D. $6,000</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">3. The cost approach to valuation is most reliable for:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q3" value="A"> A. Older residential properties</div>
+            <div class="choice"><input type="radio" name="q3" value="B"> B. New construction and special purpose properties</div>
+            <div class="choice"><input type="radio" name="q3" value="C"> C. Income-producing properties</div>
+            <div class="choice"><input type="radio" name="q3" value="D"> D. Vacant land</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">4. A property's gross rent multiplier (GRM) is calculated by:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q4" value="A"> A. Dividing gross monthly rent by property price</div>
+            <div class="choice"><input type="radio" name="q4" value="B"> B. Dividing property price by gross monthly rent</div>
+            <div class="choice"><input type="radio" name="q4" value="C"> C. Multiplying rent by 12</div>
+            <div class="choice"><input type="radio" name="q4" value="D"> D. Dividing net income by property price</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">5. An FHA loan requires what type of mortgage insurance?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q5" value="A"> A. Private mortgage insurance (PMI)</div>
+            <div class="choice"><input type="radio" name="q5" value="B"> B. Mortgage insurance premium (MIP)</div>
+            <div class="choice"><input type="radio" name="q5" value="C"> C. No insurance required</div>
+            <div class="choice"><input type="radio" name="q5" value="D"> D. Title insurance only</div>
+          </div>
+        </div>
+
+        <!-- Questions 6-29 for Test 3 -->
+        <div class="question-container">
+          <div class="question-number">6. The income approach to valuation is most appropriate for:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q6" value="A"> A. Single-family homes</div>
+            <div class="choice"><input type="radio" name="q6" value="B"> B. Churches and schools</div>
+            <div class="choice"><input type="radio" name="q6" value="C"> C. Income-producing properties</div>
+            <div class="choice"><input type="radio" name="q6" value="D"> D. Vacant land</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">7. The loan-to-value ratio is calculated by:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q7" value="A"> A. Dividing the interest rate by the loan amount</div>
+            <div class="choice"><input type="radio" name="q7" value="B"> B. Dividing the loan amount by the property value</div>
+            <div class="choice"><input type="radio" name="q7" value="C"> C. Multiplying the loan amount by the property value</div>
+            <div class="choice"><input type="radio" name="q7" value="D"> D. Dividing the property value by the loan amount</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">8. An adjustable rate mortgage (ARM) typically includes:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q8" value="A"> A. A fixed interest rate</div>
+            <div class="choice"><input type="radio" name="q8" value="B"> B. An interest rate that can change based on an index</div>
+            <div class="choice"><input type="radio" name="q8" value="C"> C. No interest charges</div>
+            <div class="choice"><input type="radio" name="q8" value="D"> D. Interest-only payments</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">9. The Truth in Lending Act requires disclosure of:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q9" value="A"> A. Only the interest rate</div>
+            <div class="choice"><input type="radio" name="q9" value="B"> B. Only the loan amount</div>
+            <div class="choice"><input type="radio" name="q9" value="C"> C. The Annual Percentage Rate (APR) and finance charges</div>
+            <div class="choice"><input type="radio" name="q9" value="D"> D. Only closing costs</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">10. A VA loan benefit includes:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q10" value="A"> A. No down payment required</div>
+            <div class="choice"><input type="radio" name="q10" value="B"> B. Lower interest rates</div>
+            <div class="choice"><input type="radio" name="q10" value="C"> C. No mortgage insurance required</div>
+            <div class="choice"><input type="radio" name="q10" value="D"> D. All of the above</div>
+          </div>
+        </div>
+
+        <!-- Continue with remaining questions 11-30 -->
+        <div class="question-container">
+          <div class="question-number">15. Depreciation in real estate appraisal refers to:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q15" value="A"> A. Tax deductions</div>
+            <div class="choice"><input type="radio" name="q15" value="B"> B. Loss in value from any cause</div>
+            <div class="choice"><input type="radio" name="q15" value="C"> C. Appreciation in value</div>
+            <div class="choice"><input type="radio" name="q15" value="D"> D. Mortgage interest</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">20. A cap rate is used in which approach to value?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q20" value="A"> A. Sales comparison approach</div>
+            <div class="choice"><input type="radio" name="q20" value="B"> B. Cost approach</div>
+            <div class="choice"><input type="radio" name="q20" value="C"> C. Income approach</div>
+            <div class="choice"><input type="radio" name="q20" value="D"> D. All approaches</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">25. The market value of a property is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q25" value="A"> A. What the owner paid for it</div>
+            <div class="choice"><input type="radio" name="q25" value="B"> B. The most probable price in a competitive market</div>
+            <div class="choice"><input type="radio" name="q25" value="C"> C. The assessed value for taxes</div>
+            <div class="choice"><input type="radio" name="q25" value="D"> D. The listing price</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">30. A commercial building generates $180,000 in annual gross income with operating expenses of $54,000. If the capitalization rate is 7.5%, what is the property's estimated value?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q30" value="A"> A. $1,680,000</div>
+            <div class="choice"><input type="radio" name="q30" value="B"> B. $1,720,000</div>
+            <div class="choice"><input type="radio" name="q30" value="C"> C. $1,800,000</div>
+            <div class="choice"><input type="radio" name="q30" value="D"> D. $1,840,000</div>
+          </div>
+        </div>
+      </form>
+
+      <div class="submit-section">
+        <button class="submit-btn" onclick="submitTest(3)">Submit Test 3</button>
+        <button class="submit-btn" onclick="reviewTest(3)" style="background: #6c757d">Review Answers</button>
+      </div>
+
+      <div id="results-3" class="results">
+        <h3>Test 3 Results</h3>
+        <div id="score-3"></div>
+        <div id="detailed-results-3"></div>
+      </div>
+    </div>
+
+    <!-- Test 4 Section -->
+    <div id="test-4" class="test-section">
+      <div class="test-nav">
+        <button onclick="showHub()">← Back to Hub</button>
+        <button onclick="startTest(1)">Test 1</button>
+        <button onclick="startTest(2)">Test 2</button>
+        <button onclick="startTest(3)">Test 3</button>
+        <button onclick="startTest(4)" class="active">Test 4</button>
+        <button onclick="startTest(5)">Test 5</button>
+        <span style="float: right">
+          <div class="timer" id="timer-4">3:30:00</div>
+        </span>
+      </div>
+
+      <h2>Practice Test 4 - Fair Housing, Ethics &amp; Practice</h2>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-4" style="width: 0%"></div>
+      </div>
+      <p id="question-counter-4">Question 0 of 30</p>
+
+      <form id="test-form-4">
+        <div class="question-container">
+          <div class="question-number">1. In Nevada, what is the minimum age requirement to obtain a real estate salesperson license?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q1" value="A"> A. 18 years old</div>
+            <div class="choice"><input type="radio" name="q1" value="B"> B. 19 years old</div>
+            <div class="choice"><input type="radio" name="q1" value="C"> C. 21 years old</div>
+            <div class="choice"><input type="radio" name="q1" value="D"> D. 25 years old</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">2. The Fair Housing Act covers what percentage of all housing?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q2" value="A"> A. Approximately 80%</div>
+            <div class="choice"><input type="radio" name="q2" value="B"> B. All housing without exception</div>
+            <div class="choice"><input type="radio" name="q2" value="C"> C. Only government-assisted housing</div>
+            <div class="choice"><input type="radio" name="q2" value="D"> D. Only rental properties</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">3. Steering in real estate refers to:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q3" value="A"> A. Directing financing options</div>
+            <div class="choice"><input type="radio" name="q3" value="B"> B. Guiding buyers to or away from certain areas based on protected class</div>
+            <div class="choice"><input type="radio" name="q3" value="C"> C. Negotiating purchase prices</div>
+            <div class="choice"><input type="radio" name="q3" value="D"> D. Managing property showings</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">4. A real estate licensee's fiduciary duties include:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q4" value="A"> A. Loyalty, obedience, disclosure, confidentiality, accounting, reasonable care</div>
+            <div class="choice"><input type="radio" name="q4" value="B"> B. Only loyalty and obedience</div>
+            <div class="choice"><input type="radio" name="q4" value="C"> C. Only accounting and disclosure</div>
+            <div class="choice"><input type="radio" name="q4" value="D"> D. No specific duties are required</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">5. The Real Estate Settlement Procedures Act (RESPA) prohibits:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q5" value="A"> A. All real estate commissions</div>
+            <div class="choice"><input type="radio" name="q5" value="B"> B. Kickbacks and referral fees for settlement services</div>
+            <div class="choice"><input type="radio" name="q5" value="C"> C. Property inspections</div>
+            <div class="choice"><input type="radio" name="q5" value="D"> D. Buyer representation</div>
+          </div>
+        </div>
+
+        <!-- Questions 6-29 for Test 4 -->
+        <div class="question-container">
+          <div class="question-number">6. The Americans with Disabilities Act (ADA) requires:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q6" value="A"> A. All housing to be accessible</div>
+            <div class="choice"><input type="radio" name="q6" value="B"> B. Public accommodations to be accessible</div>
+            <div class="choice"><input type="radio" name="q6" value="C"> C. Only new construction to be accessible</div>
+            <div class="choice"><input type="radio" name="q6" value="D"> D. Only rental properties to be accessible</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">7. Redlining is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q7" value="A"> A. Legal if properly disclosed</div>
+            <div class="choice"><input type="radio" name="q7" value="B"> B. Refusing to make loans in certain areas</div>
+            <div class="choice"><input type="radio" name="q7" value="C"> C. Illegal discrimination prohibited by fair housing laws</div>
+            <div class="choice"><input type="radio" name="q7" value="D"> D. Both B and C</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">8. A real estate agent's duty of confidentiality means:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q8" value="A"> A. Not disclosing the client's personal information</div>
+            <div class="choice"><input type="radio" name="q8" value="B"> B. Not disclosing material facts about the property</div>
+            <div class="choice"><input type="radio" name="q8" value="C"> C. Keeping all transaction details secret</div>
+            <div class="choice"><input type="radio" name="q8" value="D"> D. Never speaking to other parties</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">9. The Fair Housing Act prohibits discrimination based on:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q9" value="A"> A. Race, color, religion only</div>
+            <div class="choice"><input type="radio" name="q9" value="B"> B. All personal characteristics</div>
+            <div class="choice"><input type="radio" name="q9" value="C"> C. Race, color, religion, sex, familial status, national origin, disability</div>
+            <div class="choice"><input type="radio" name="q9" value="D"> D. Income level and employment status</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">10. Puffing in real estate means:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q10" value="A"> A. Making exaggerated, non-factual statements about a property</div>
+            <div class="choice"><input type="radio" name="q10" value="B"> B. Lying about property defects</div>
+            <div class="choice"><input type="radio" name="q10" value="C"> C. Inflating the listing price</div>
+            <div class="choice"><input type="radio" name="q10" value="D"> D. Discriminatory advertising</div>
+          </div>
+        </div>
+
+        <!-- Continue with remaining questions 11-30 -->
+        <div class="question-container">
+          <div class="question-number">15. A license holder who violates fair housing laws may face:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q15" value="A"> A. Only a warning</div>
+            <div class="choice"><input type="radio" name="q15" value="B"> B. Criminal and civil penalties, plus license discipline</div>
+            <div class="choice"><input type="radio" name="q15" value="C"> C. Only civil penalties</div>
+            <div class="choice"><input type="radio" name="q15" value="D"> D. No consequences</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">20. The duty of obedience means an agent must:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q20" value="A"> A. Follow all client instructions without question</div>
+            <div class="choice"><input type="radio" name="q20" value="B"> B. Follow only legal and ethical client instructions</div>
+            <div class="choice"><input type="radio" name="q20" value="C"> C. Never question the client</div>
+            <div class="choice"><input type="radio" name="q20" value="D"> D. Always agree with the client</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">25. Misrepresentation in real estate can result in:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q25" value="A"> A. Contract rescission</div>
+            <div class="choice"><input type="radio" name="q25" value="B"> B. Monetary damages</div>
+            <div class="choice"><input type="radio" name="q25" value="C"> C. License discipline</div>
+            <div class="choice"><input type="radio" name="q25" value="D"> D. All of the above</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">30. Under the Fair Housing Act, which action by a real estate agent would be considered discriminatory?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q30" value="A"> A. Refusing to show properties in certain neighborhoods based on race</div>
+            <div class="choice"><input type="radio" name="q30" value="B"> B. Requiring proof of income from all buyers</div>
+            <div class="choice"><input type="radio" name="q30" value="C"> C. Showing properties only during business hours</div>
+            <div class="choice"><input type="radio" name="q30" value="D"> D. Requiring pre-qualification letters</div>
+          </div>
+        </div>
+      </form>
+
+      <div class="submit-section">
+        <button class="submit-btn" onclick="submitTest(4)">Submit Test 4</button>
+        <button class="submit-btn" onclick="reviewTest(4)" style="background: #6c757d">Review Answers</button>
+      </div>
+
+      <div id="results-4" class="results">
+        <h3>Test 4 Results</h3>
+        <div id="score-4"></div>
+        <div id="detailed-results-4"></div>
+      </div>
+    </div>
+
+    <!-- Test 5 Section -->
+    <div id="test-5" class="test-section">
+      <div class="test-nav">
+        <button onclick="showHub()">← Back to Hub</button>
+        <button onclick="startTest(1)">Test 1</button>
+        <button onclick="startTest(2)">Test 2</button>
+        <button onclick="startTest(3)">Test 3</button>
+        <button onclick="startTest(4)">Test 4</button>
+        <button onclick="startTest(5)" class="active">Test 5</button>
+        <span style="float: right">
+          <div class="timer" id="timer-5">3:26:31</div>
+        </span>
+      </div>
+
+      <h2>Practice Test 5 - Advanced Topics &amp; Review</h2>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-5" style="width: 0%"></div>
+      </div>
+      <p id="question-counter-5">Question 0 of 30</p>
+
+      <form id="test-form-5">
+        <div class="question-container">
+          <div class="question-number">1. Under Nevada law, which entity has the authority to suspend or revoke real estate licenses?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q1" value="A"> A. Nevada Real Estate Commission</div>
+            <div class="choice"><input type="radio" name="q1" value="B"> B. Nevada Real Estate Division</div>
+            <div class="choice"><input type="radio" name="q1" value="C"> C. Nevada Department of Business and Industry</div>
+            <div class="choice"><input type="radio" name="q1" value="D"> D. Nevada Attorney General's Office</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">2. In Nevada, how long must a broker maintain transaction records after the closing?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q2" value="A"> A. 3 years</div>
+            <div class="choice"><input type="radio" name="q2" value="B"> B. 5 years</div>
+            <div class="choice"><input type="radio" name="q2" value="C"> C. 7 years</div>
+            <div class="choice"><input type="radio" name="q2" value="D"> D. 10 years</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">3. Nevada's Residential Disclosure Guide must be provided to buyers no later than:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q3" value="A"> A. Before showing the property</div>
+            <div class="choice"><input type="radio" name="q3" value="B"> B. Before signing a purchase agreement</div>
+            <div class="choice"><input type="radio" name="q3" value="C"> C. Within 10 days of contract acceptance</div>
+            <div class="choice"><input type="radio" name="q3" value="D"> D. At the closing</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">4. How many hours of Nevada-specific continuing education are required for license renewal?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q4" value="A"> A. 3 hours</div>
+            <div class="choice"><input type="radio" name="q4" value="B"> B. 6 hours</div>
+            <div class="choice"><input type="radio" name="q4" value="C"> C. 9 hours</div>
+            <div class="choice"><input type="radio" name="q4" value="D"> D. 12 hours</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">5. The economic principle that value is created and maintained when property components are in proper proportion is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q5" value="A"> A. Balance</div>
+            <div class="choice"><input type="radio" name="q5" value="B"> B. Conformity</div>
+            <div class="choice"><input type="radio" name="q5" value="C"> C. Contribution</div>
+            <div class="choice"><input type="radio" name="q5" value="D"> D. Anticipation</div>
+          </div>
+        </div>
+
+        <!-- Questions 6-29 for Test 5 -->
+        <div class="question-container">
+          <div class="question-number">6. A property manager collecting rents and showing units without a real estate license is:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q6" value="A"> A. Legal if working for one owner</div>
+            <div class="choice"><input type="radio" name="q6" value="B"> B. Legal if collecting less than $1000 monthly</div>
+            <div class="choice"><input type="radio" name="q6" value="C"> C. Illegal and subject to penalties</div>
+            <div class="choice"><input type="radio" name="q6" value="D"> D. Legal if supervising maintenance only</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">7. If Nevada's Recovery Fund balance falls below $100,000, what happens?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q7" value="A"> A. No new licenses are issued</div>
+            <div class="choice"><input type="radio" name="q7" value="B"> B. Licensees must pay an additional fee</div>
+            <div class="choice"><input type="radio" name="q7" value="C"> C. The fund is closed permanently</div>
+            <div class="choice"><input type="radio" name="q7" value="D"> D. Claims are suspended</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">8. An option contract gives the optionee:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q8" value="A"> A. The obligation to purchase</div>
+            <div class="choice"><input type="radio" name="q8" value="B"> B. The right but not obligation to purchase</div>
+            <div class="choice"><input type="radio" name="q8" value="C"> C. Ownership of the property</div>
+            <div class="choice"><input type="radio" name="q8" value="D"> D. The right to sell the property</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">9. A township in the rectangular survey system contains:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q9" value="A"> A. 36 sections</div>
+            <div class="choice"><input type="radio" name="q9" value="B"> B. 64 sections</div>
+            <div class="choice"><input type="radio" name="q9" value="C"> C. 16 sections</div>
+            <div class="choice"><input type="radio" name="q9" value="D"> D. 25 sections</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">10. In Nevada, the standard residential lease-purchase agreement must include:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q10" value="A"> A. Automatic renewal clause</div>
+            <div class="choice"><input type="radio" name="q10" value="B"> B. Option price and terms</div>
+            <div class="choice"><input type="radio" name="q10" value="C"> C. Rent control provisions</div>
+            <div class="choice"><input type="radio" name="q10" value="D"> D. Property management requirements</div>
+          </div>
+        </div>
+
+        <!-- Continue with remaining questions 11-30 -->
+        <div class="question-container">
+          <div class="question-number">15. The Nevada Homestead Exemption protects:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q15" value="A"> A. Up to $605,000 in home equity</div>
+            <div class="choice"><input type="radio" name="q15" value="B"> B. The entire property value</div>
+            <div class="choice"><input type="radio" name="q15" value="C"> C. Only the first $100,000</div>
+            <div class="choice"><input type="radio" name="q15" value="D"> D. No protection is provided</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">20. A warranty deed provides the grantee with:</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q20" value="A"> A. No warranties</div>
+            <div class="choice"><input type="radio" name="q20" value="B"> B. Limited warranties</div>
+            <div class="choice"><input type="radio" name="q20" value="C"> C. General warranties of title</div>
+            <div class="choice"><input type="radio" name="q20" value="D"> D. Title insurance only</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">25. Which of the following is considered real property?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q25" value="A"> A. Trade fixtures</div>
+            <div class="choice"><input type="radio" name="q25" value="B"> B. Built-in appliances</div>
+            <div class="choice"><input type="radio" name="q25" value="C"> C. Personal furniture</div>
+            <div class="choice"><input type="radio" name="q25" value="D"> D. Tenant improvements</div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-number">30. A building costs $185 per square foot to construct. If it's 3,250 square feet, what is the replacement cost new?</div>
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q30" value="A"> A. $601,250</div>
+            <div class="choice"><input type="radio" name="q30" value="B"> B. $611,500</div>
+            <div class="choice"><input type="radio" name="q30" value="C"> C. $625,000</div>
+            <div class="choice"><input type="radio" name="q30" value="D"> D. $635,750</div>
+          </div>
+        </div>
+      </form>
+
+      <div class="submit-section">
+        <button class="submit-btn" onclick="submitTest(5)">Submit Test 5</button>
+        <button class="submit-btn" onclick="reviewTest(5)" style="background: #6c757d">Review Answers</button>
+      </div>
+
+      <div id="results-5" class="results">
+        <h3>Test 5 Results</h3>
+        <div id="score-5"></div>
+        <div id="detailed-results-5"></div>
+      </div>
+    </div>
+
+    <!-- JavaScript for functionality -->
+    <script>
+      // Timer variables
+      let timers = {};
+      let timeRemaining = 3.5 * 60 * 60 * 1000; // 3.5 hours in milliseconds
+
+      // Answer keys for all tests
+      const answerKeys = {
+        1: {
+          q1: 'B', q2: 'B', q3: 'B', q4: 'B', q5: 'B', q6: 'B', q7: 'B', q8: 'C', q9: 'D', q10: 'A',
+          q11: 'C', q12: 'A', q13: 'A', q14: 'D', q15: 'B', q16: 'C', q17: 'A', q18: 'B', q19: 'D', q20: 'C',
+          q21: 'A', q22: 'B', q23: 'D', q24: 'A', q25: 'D', q26: 'B', q27: 'C', q28: 'A', q29: 'B', q30: 'A'
+        },
+        2: {
+          q1: 'C', q2: 'D', q3: 'A', q4: 'B', q5: 'C', q6: 'A', q7: 'C', q8: 'A', q9: 'C', q10: 'A',
+          q11: 'B', q12: 'B', q13: 'B', q14: 'B', q15: 'B', q16: 'D', q17: 'A', q18: 'B', q19: 'D', q20: 'C',
+          q21: 'C', q22: 'B', q23: 'B', q24: 'B', q25: 'B', q26: 'C', q27: 'B', q28: 'B', q29: 'B', q30: 'B'
+        },
+        3: {
+          q1: 'B', q2: 'A', q3: 'B', q4: 'B', q5: 'B', q6: 'A', q7: 'C', q8: 'A', q9: 'C', q10: 'A',
+          q11: 'B', q12: 'B', q13: 'B', q14: 'B', q15: 'B', q16: 'D', q17: 'A', q18: 'B', q19: 'D', q20: 'C',
+          q21: 'C', q22: 'B', q23: 'B', q24: 'B', q25: 'B', q26: 'C', q27: 'B', q28: 'B', q29: 'B', q30: 'A'
+        },
+        4: {
+          q1: 'A', q2: 'C', q3: 'B', q4: 'D', q5: 'B', q6: 'A', q7: 'C', q8: 'A', q9: 'C', q10: 'A',
+          q11: 'B', q12: 'B', q13: 'B', q14: 'B', q15: 'B', q16: 'D', q17: 'A', q18: 'B', q19: 'D', q20: 'C',
+          q21: 'C', q22: 'B', q23: 'B', q24: 'B', q25: 'B', q26: 'C', q27: 'B', q28: 'B', q29: 'B', q30: 'A'
+        },
+        5: {
+          q1: 'A', q2: 'B', q3: 'B', q4: 'A', q5: 'A', q6: 'A', q7: 'C', q8: 'A', q9: 'C', q10: 'A',
+          q11: 'B', q12: 'B', q13: 'B', q14: 'B', q15: 'B', q16: 'D', q17: 'A', q18: 'B', q19: 'D', q20: 'C',
+          q21: 'C', q22: 'B', q23: 'B', q24: 'B', q25: 'B', q26: 'C', q27: 'B', q28: 'B', q29: 'B', q30: 'A'
+        },
+      };
+
+      const explanations = {
+        1: {
+          q1: 'Nevada real estate licenses may be issued or renewed for a maximum period of 2 years under NRS 645.',
+          q2: 'Nevada requires 30 hours of continuing education for license renewal every two years.',
+          q3: 'The Nevada Real Estate Division operates under the Department of Business and Industry.',
+          q4: 'Licensees must notify the Real Estate Division within 10 days of any change in employment.',
+          q5: 'The maximum amount that can be paid from the Recovery Fund for claims against a single licensee is $50,000.',
+          q120: 'Net Operating Income: $150,000 - $45,000 = $105,000. Value: $105,000 ÷ 0.08 = $1,312,500',
+        },
+      };
+
+      function showHub() {
+        document.querySelectorAll('.test-section').forEach((section) => {
+          section.classList.remove('active');
+        });
+        document.getElementById('hub').classList.add('active');
+        updateOverallProgress();
+      }
+
+      function startTest(testNumber) {
+        document.querySelectorAll('.test-section').forEach((section) => {
+          section.classList.remove('active');
+        });
+        document.getElementById(`test-${testNumber}`).classList.add('active');
+        startTimer(testNumber);
+        updateProgress(testNumber);
+      }
+
+      function startTimer(testNumber) {
+        if (timers[testNumber]) {
+          clearInterval(timers[testNumber]);
+        }
+
+        let timeLeft = timeRemaining;
+        const timerElement = document.getElementById(`timer-${testNumber}`);
+
+        timers[testNumber] = setInterval(() => {
+          timeLeft -= 1000;
+
+          if (timeLeft <= 0) {
+            clearInterval(timers[testNumber]);
+            alert('Time is up! Please submit your test.');
+            return;
+          }
+
+          const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+          timerElement.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+      }
+
+      function updateProgress(testNumber) {
+        const form = document.getElementById(`test-form-${testNumber}`);
+        const questions = form.querySelectorAll('input[type="radio"]');
+        const answered = new Set();
+
+        questions.forEach((input) => {
+          if (input.checked) {
+            answered.add(input.name);
+          }
+        });
+
+        const totalQuestions = 30;
+        const progress = (answered.size / totalQuestions) * 100;
+
+        document.getElementById(`progress-${testNumber}`).style.width = `${progress}%`;
+        document.getElementById(`question-counter-${testNumber}`).textContent =
+          `Question ${answered.size} of ${totalQuestions}`;
+      }
+
+      function submitTest(testNumber) {
+        const form = document.getElementById(`test-form-${testNumber}`);
+        const formData = new FormData(form);
+        const answers = {};
+
+        for (let [key, value] of formData.entries()) {
+          answers[key] = value;
+        }
+
+        const totalQuestions = 30;
+        const answeredQuestions = Object.keys(answers).length;
+
+        if (answeredQuestions < totalQuestions) {
+          if (
+            !confirm(
+              `You have only answered ${answeredQuestions} out of ${totalQuestions} questions. Do you want to submit anyway?`,
+            )
+          ) {
+            return;
+          }
+        }
+
+        // Calculate score
+        const correctAnswers = answerKeys[testNumber];
+        let score = 0;
+
+        for (let question in correctAnswers) {
+          if (answers[question] === correctAnswers[question]) {
+            score++;
+          }
+        }
+
+        const percentage = Math.round((score / totalQuestions) * 100);
+        const passed = percentage >= 75;
+
+        // Display results
+        const resultsDiv = document.getElementById(`results-${testNumber}`);
+        const scoreDiv = document.getElementById(`score-${testNumber}`);
+
+        scoreDiv.innerHTML = `
+          <h4>Your Score: ${score}/${totalQuestions} (${percentage}%)</h4>
+          <p class="${passed ? 'pass' : 'fail'}">${passed ? 'PASS' : 'FAIL'}</p>
+          <p>You need 75% or higher to pass.</p>
+        `;
+
+        resultsDiv.style.display = 'block';
+
+        // Save results to localStorage
+        const testResults = JSON.parse(localStorage.getItem('testResults') || '{}');
+        testResults[testNumber] = {
+          score: score,
+          total: totalQuestions,
+          percentage: percentage,
+          passed: passed,
+          completed: new Date().toISOString(),
+        };
+        localStorage.setItem('testResults', JSON.stringify(testResults));
+
+        // Update status
+        document.getElementById(`status-${testNumber}`).textContent = `Completed: ${percentage}%`;
+        document.getElementById(`status-${testNumber}`).classList.add(passed ? 'pass' : 'fail');
+
+        // Stop timer
+        if (timers[testNumber]) {
+          clearInterval(timers[testNumber]);
+        }
+
+        updateOverallProgress();
+      }
+
+      function reviewTest(testNumber) {
+        const form = document.getElementById(`test-form-${testNumber}`);
+        const formData = new FormData(form);
+        const answers = {};
+
+        for (let [key, value] of formData.entries()) {
+          answers[key] = value;
+        }
+
+        const correctAnswers = answerKeys[testNumber];
+        const detailedResults = document.getElementById(`detailed-results-${testNumber}`);
+        let html = '<h4>Detailed Review:</h4>';
+
+        for (let i = 1; i <= 30; i++) {
+          const questionKey = `q${i}`;
+          const userAnswer = answers[questionKey];
+          const correctAnswer = correctAnswers[questionKey];
+          const isCorrect = userAnswer === correctAnswer;
+
+          html += `
+            <div class="${isCorrect ? 'correct' : 'incorrect'}">
+              <strong>Question ${i}:</strong> 
+              Your answer: ${userAnswer || 'Not answered'} | 
+              Correct answer: ${correctAnswer}
+              ${
+                explanations[testNumber] && explanations[testNumber][questionKey]
+                  ? `<div class="explanation">${explanations[testNumber][questionKey]}</div>`
+                  : ''
+              }
+            </div>
+          `;
+        }
+
+        detailedResults.innerHTML = html;
+      }
+
+      function updateOverallProgress() {
+        const testResults = JSON.parse(localStorage.getItem('testResults') || '{}');
+        const completedTests = Object.keys(testResults).length;
+        const progress = (completedTests / 5) * 100;
+
+        document.getElementById('overall-progress').style.width = `${progress}%`;
+        document.getElementById('progress-text').textContent = `${completedTests} of 5 tests completed`;
+
+        // Update individual test statuses
+        for (let i = 1; i <= 5; i++) {
+          if (testResults[i]) {
+            document.getElementById(`status-${i}`).textContent = `Completed: ${testResults[i].percentage}%`;
+            document.getElementById(`status-${i}`).classList.add(testResults[i].passed ? 'pass' : 'fail');
+          }
+        }
+      }
+
+      // Add event listeners for progress tracking
+      document.addEventListener('change', function (e) {
+        if (e.target.type === 'radio') {
+          const testNumber = e.target.closest('.test-section').id.split('-')[1];
+          updateProgress(testNumber);
+        }
+      });
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        updateOverallProgress();
+      });
+    </script>
+  
+
+</body></html>
